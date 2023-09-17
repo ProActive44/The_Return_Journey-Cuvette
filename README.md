@@ -16,11 +16,11 @@ if possible! This will help you stand out from the crowd.
 
 ### 1. User Registration:
 
-Collect the following details (being creative has a bonus 🙂)
-a) Name
-b) Email
-c) Mobile Number
-d) Difficulty Level - Easy, Medium, Hard
+Collect the following details (being creative has a bonus 🙂)</br>
+a) Name</br>
+b) Email</br>
+c) Mobile Number</br>
+d) Difficulty Level - Easy, Medium, Hard</br>
 
 ### 2. Once the button is pressed, your app should display a box that changes its color on a random
 basis. Ideally, it should change no sooner than 1s and no later than 2s.
