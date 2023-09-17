@@ -1,8 +1,26 @@
-# React + Vite
+## Coding Challenge The Return Journey
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+In this coding challenge, you are asked to write a small web game that recreates the iconic
+green light/red light game from Squid Games. The game will display a box that changes color
+between green and red. The goal of the game is to get to n clicks on the green box within y
+seconds.
+You should write all your game logic in the GreenLightRedLight component. By default, it should
+display a button with the text “Start Game.” This button will be used to start the game.
 
-Currently, two official plugins are available:
+## Evaluation Criteria:
+This Challenge is used to identify the expertise level of the candidate from Beginner to Hard. Do
+not give up as you would be evaluated step-wise. We would recommend you complete the task
+if possible! This will help you stand out from the crowd.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Steps to be executed in the below-mentioned order:
+
+### 1. User Registration:
+
+Collect the following details (being creative has a bonus 🙂)
+a) Name
+b) Email
+c) Mobile Number
+d) Difficulty Level - Easy, Medium, Hard
+
+### 2. Once the button is pressed, your app should display a box that changes its color on a random
+basis. Ideally, it should change no sooner than 1s and no later than 2s.
