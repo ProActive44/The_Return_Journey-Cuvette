@@ -5,9 +5,9 @@ import GreenLightRedLight from './Components/GreenLightRedLight'
 function App() {
 
   return (
-    <>
+    <div>
       <GreenLightRedLight targetScore={10} gameDuration={40}/>
-    </>
+    </div>
   )
 }
 
