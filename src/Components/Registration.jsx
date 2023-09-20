@@ -32,7 +32,6 @@ const Registration = () => {
   const toast = useToast();
 
   const handleSave = () => {
-    console.log(user);
     if (
       user &&
       user?.name !== "" &&
@@ -75,7 +74,7 @@ const Registration = () => {
 
   useEffect(() => {
     initialLoad(dispatch)
-    // onOpen();
+    onOpen();
   }, []);
 
   return (

@@ -13,7 +13,7 @@ export function initialLoad(dispatch) {
     email: "prasadmhaske2001@gmail.com",
     level: "easy",
     name: "Prasad Babasaheb Mhaske",
-    number: "78745218956",
+    number: "12345678790",
     score: 10,
   };
   dispatch(newUser(user));

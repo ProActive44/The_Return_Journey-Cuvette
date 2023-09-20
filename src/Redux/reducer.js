@@ -21,9 +21,7 @@ const Reducer = (state = initState, action) => {
     case CURRUSERSCORE:
       let newAllUsers = state.AllUsers.map((ele) => {
         if (ele.email === payload.email) {
-          if (payload.score > ele.score) {
-            return payload;
-          }
+          return { ...ele, score: payload.score };
         }
         return ele;
       });

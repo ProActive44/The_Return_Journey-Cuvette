@@ -7,6 +7,8 @@ const LeaderBoard = () => {
   const [sortedUsers, setSortedUsers] = useState([]);
 
   const AllUsers = useSelector((store) => store.AllUsers);
+  const store = useSelector((store) => store);
+  console.log(store)
 
   useEffect(() => {
     const filteredAndSortedUsers = AllUsers.filter(
@@ -15,15 +17,17 @@ const LeaderBoard = () => {
 
     setSortedUsers(filteredAndSortedUsers);
   }, [AllUsers]);
-  console.log(AllUsers);
   return (
     <Box p={1} w={"300px"} bg={"white"} color={"black"} borderRadius={20}>
-      <Text fontWeight={"extrabold"}>LEADERBOARD</Text>
+      <Text fontWeight={"extrabold"} fontFamily={'heading'}>LEADERBOARD</Text>
       {/* <Flex justify={"space-between"} my={2}>
         <Button>Easy</Button>
         <Button>Medium</Button>
         <Button>Hard</Button>
       </Flex> */}
+      {
+        sortedUsers && <Text fontWeight={'extrabold'} mt={10}>No users</Text>
+      }
       <Box>
         {sortedUsers?.map((ele, idx) => {
           return (
@@ -40,8 +44,8 @@ const LeaderBoard = () => {
               <Text>{ele.name}</Text>
               {/* <Text>{ele.email}</Text> */}
               {/* <Text>{ele.number}</Text> */}
-              <Text>-</Text>
-              <Text>{ele.score}s</Text>
+              <Text> = </Text>
+              <Text>{ele.score}</Text>
             </Flex>
           );
         })}

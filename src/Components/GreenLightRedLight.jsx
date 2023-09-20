@@ -1,7 +1,7 @@
-import { Button } from "@chakra-ui/react";
-import React, { useState, useEffect, useCallback } from "react";
+import { Box, Button, Text, useToast } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
 import Registration from "./Registration";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveCurrUserScore } from "../Redux/action";
 
 const GreenLightRedLight = ({ targetScore, gameDuration }) => {
@@ -12,7 +12,9 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(gameDuration);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const currUser = useSelector((store) => store.currUser);
 
   const getRandomColor = () => {
     return Math.random() < 0.5;
@@ -35,9 +37,31 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
       setGreen(getRandomColor());
     }, randomTime);
   };
-  const endGame = (newScore)=>{
-     dispatch(saveCurrUserScore(newScore))
+  function calculateScore(number, maxNumber = 40) {
+    // Ensure number is within the range [0, maxNumber]
+    const numberInRange = Math.min(Math.max(number, 0), maxNumber);
+  
+    // The score range [1, 100]
+    const score = (1 - numberInRange / maxNumber) * 99 + 1;
+  
+    return Math.round(score);
   }
+  const endGame = (newScore) => {
+    console.log(newScore)
+    popToast();
+    let TrueScore = calculateScore(newScore);
+    let updatedUser = { ...currUser, score: TrueScore };
+    dispatch(saveCurrUserScore(updatedUser));
+  };
+  const popToast = () => {
+    toast({
+      title: gameWon ? "Congratulations" : "Try Again",
+      status: gameWon ? "success" : "error",
+      duration: 4000,
+      isClosable: true,
+      position: "bottom-left",
+    });
+  };
 
   useEffect(() => {
     if (gameStarted) {
@@ -53,7 +77,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
           } else {
             setGameOver(true);
           }
-          endGame(score)
+          endGame(score);
         }
       }, 1000);
 
@@ -63,22 +87,22 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
 
   const handleClick = (color) => {
     if (color === "green" && gameStarted) {
-      let newScore = score + 1
+      let newScore = score + 1;
       setScore(newScore);
 
       if (score === targetScore - 1) {
         // If the user reaches the target score, they win
         setGameWon(true);
         setGameStarted(false);
-        endGame(newScore)
+        endGame(newScore);
       } else {
         // If not, change the color for the next click
         changeColor();
       }
     } else if (color === "red" && gameStarted) {
+      endGame(score);
       setGameStarted(false);
       setGameOver(true);
-      endGame(newScore)
     }
   };
 
@@ -93,7 +117,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   return (
     <div>
       <h1 className="Title">Green Light Red Light Game</h1>
-      <Registration/>
+      <Registration />
       {!gameStarted && !gameOver && !gameWon && (
         <Button onClick={startGame}>Start Game</Button>
       )}
@@ -110,16 +134,16 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
         </div>
       )}
       {gameOver && (
-        <div>
-          <p>Game Over!</p>
+        <Box my={10}>
+          <Text my={5}>Game Over!</Text>
           <Button onClick={restartGame}>Play Again</Button>
-        </div>
+        </Box>
       )}
       {gameWon && (
-        <div>
-          <p>You Win!</p>
+        <Box my={10}>
+          <Text my={5}>You Win!</Text>
           <Button onClick={restartGame}>Play Again</Button>
-        </div>
+        </Box>
       )}
     </div>
   );
