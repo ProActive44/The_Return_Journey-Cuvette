@@ -12,11 +12,12 @@ const Reducer = (state = initState, action) => {
 
   switch (type) {
     case SAVENEWUSER:
-      state.AllUsers.map((ele) => {
-        if (ele.email === payload.email) {
-          return state;
-        }
-      });
+      const emailExists = state.AllUsers.some(
+        (ele) => ele.email === payload.email
+      );
+      if (emailExists) {
+        return state;
+      }
       return {
         ...state,
         AllUsers: [...state.AllUsers, payload],
@@ -24,16 +25,14 @@ const Reducer = (state = initState, action) => {
       };
 
     case CURRUSERSCORE:
-      let newAllUsers = state.AllUsers.map((ele) => {
-        if (ele.email === payload.email) {
-          return { ...ele, score: payload.score };
-        }
-        return ele;
-      });
       return {
         ...state,
         currUser: payload,
-        AllUsers: newAllUsers,
+        AllUsers: state.AllUsers.map((ele) =>
+          ele.email === payload.email && payload.score > ele.score
+            ? { ...ele, score: payload.score }
+            : ele
+        ),
       };
 
     default:

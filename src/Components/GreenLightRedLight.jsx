@@ -89,7 +89,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
       let newScore = score + 1;
       setScore(newScore);
 
-      if (score === targetScore - 1) {
+      if (score === targetScore-1) {
         // If the user reaches the target score, they win
         setGameWon(true);
         setGameStarted(false);
@@ -115,6 +115,10 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
 
   return (
     <Box mb={10}>
+      <Box textAlign={'left'} fontWeight={'extrabold'}  ml={{md:'-50px'}}>
+        <Text bg={'white'} display={'inline'} color={'black'}
+        px={4} py={1} borderRadius={10} textTransform={'capitalize'} >{currUser.level}</Text> 
+      </Box>
       <h1 className="Title">Green Light Red Light Game</h1>
       <Registration />
       {!gameStarted && !gameOver && !gameWon && (
@@ -127,7 +131,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
             onClick={() => handleClick(isGreen ? "green" : "red")}
           >
             {/* changing box is here */}
-            Click here
+            {isGreen ? "Click here" : "Stop"}
           </div>
           <p>Time Left: {timeLeft} seconds</p>
           <p>Score: {score}</p>
