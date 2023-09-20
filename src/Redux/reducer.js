@@ -1,4 +1,4 @@
-import { CURRUSERSCORE, SAVENEWUSER } from "./actionTypes";
+import { CURRUSERSCORE, LEVELCHANGE, SAVENEWUSER } from "./actionTypes";
 
 const initState = {
   AllUsers: [],
@@ -9,7 +9,6 @@ const initState = {
 
 const Reducer = (state = initState, action) => {
   const { type, payload } = action;
-
   switch (type) {
     case SAVENEWUSER:
       const emailExists = state.AllUsers.some(
@@ -34,6 +33,16 @@ const Reducer = (state = initState, action) => {
         ...state,
         currUser: payload,
         AllUsers: updatedUsers,
+      };
+
+    case LEVELCHANGE:
+      const updatedUsersArr = state.AllUsers.map((ele) =>
+        ele.email === payload.email ? payload : ele
+      );
+      return {
+        ...state,
+        currUser: payload,
+        AllUsers: updatedUsersArr,
       };
 
     default:

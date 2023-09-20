@@ -1,4 +1,4 @@
-import { SAVENEWUSER, CURRUSERSCORE } from "./actionTypes";
+import { SAVENEWUSER, CURRUSERSCORE, LEVELCHANGE } from "./actionTypes";
 
 export const newUser = (user) => (dispatch) => {
   let newUser = { ...user, score: user.score ? user.score : 0 };
@@ -7,6 +7,10 @@ export const newUser = (user) => (dispatch) => {
 
 export const saveCurrUserScore = (user) => (dispatch) => {
   dispatch({ type: CURRUSERSCORE, payload: user });
+};
+
+export const levelChange = (user) => (dispatch) => {
+  dispatch({ type: LEVELCHANGE, payload: user });
 };
 
 export function initialLoad(dispatch) {

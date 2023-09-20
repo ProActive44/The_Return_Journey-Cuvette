@@ -1,8 +1,8 @@
-import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Select, Text, useToast } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import Registration from "./Registration";
 import { useDispatch, useSelector } from "react-redux";
-import { saveCurrUserScore } from "../Redux/action";
+import { levelChange, saveCurrUserScore } from "../Redux/action";
 
 const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   const [gameStarted, setGameStarted] = useState(false);
@@ -13,6 +13,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   const [timeLeft, setTimeLeft] = useState(gameDuration);
 
   const currUser = useSelector((store) => store.currUser);
+  const [level, setLevel] = useState(currUser.level);
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -79,7 +80,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
     if (gameStarted) {
       const intervalId = setInterval(() => {
         setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
-        
+
         if (timeLeft <= 0 || score >= targetScore) {
           clearInterval(intervalId);
           endGame();
@@ -108,20 +109,36 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
     setGreen(false);
   };
 
+  useEffect(() => {
+    setLevel(currUser.level);
+  }, [currUser]);
+
+  const handleLevelChange = (e) => {
+    let newUser = { ...currUser, level: e.target.value };
+    setLevel(newUser.level);
+    dispatch(levelChange(newUser));
+  };
+
   return (
     <Box mb={10}>
       <Box textAlign={"left"} fontWeight={"extrabold"} ml={{ md: "-50px" }}>
-        <Text
-          bg={"white"}
-          display={"inline"}
-          color={"black"}
-          px={4}
-          py={1}
-          borderRadius={10}
-          textTransform={"capitalize"}
-        >
-          {currUser.level}
-        </Text>
+        <Flex color={"black"} justify={'space-between'}>
+          <Select
+            value={level}
+            onChange={handleLevelChange}
+            w="110px"
+            bg="white"
+            cursor={"pointer"}
+          >
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </Select>
+          <Flex bg="white"
+            cursor={"pointer"} borderRadius={10} alignContent={'center'} p={2}>
+            {currUser.name}
+          </Flex>
+        </Flex>
       </Box>
       <h1 className="Title">Green Light Red Light Game</h1>
       <Registration />

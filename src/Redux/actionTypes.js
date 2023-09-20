@@ -1,2 +1,3 @@
 export const SAVENEWUSER = "SAVENEWUSER";
 export const CURRUSERSCORE = "CURRUSERSCORE";
+export const LEVELCHANGE = "LEVELCHANGE"

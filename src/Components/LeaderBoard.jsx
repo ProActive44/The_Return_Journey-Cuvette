@@ -7,6 +7,9 @@ const LeaderBoard = () => {
   const [sortedUsers, setSortedUsers] = useState([]);
 
   const AllUsers = useSelector((store) => store.AllUsers);
+  const store = useSelector((store) => store);
+  console.log(store)
+  
 
   useEffect(() => {
     const filteredAndSortedUsers = AllUsers.filter(
@@ -54,7 +57,7 @@ const LeaderBoard = () => {
           return (
             <Flex
               key={idx}
-              p={1}
+              p={2}
               bg={"white"}
               color={"black"}
               borderRadius={10}
