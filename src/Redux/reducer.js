@@ -25,14 +25,19 @@ const Reducer = (state = initState, action) => {
       };
 
     case CURRUSERSCORE:
+      console.log("AllUsers", state.AllUsers);
+      console.log("payload", payload);
+
+      const updatedUsers = state.AllUsers.map((ele) =>
+        ele.email === payload.email
+          ? { ...ele, score: payload.score }
+          : ele
+      );
+      console.log("updatedUsers", updatedUsers);
       return {
         ...state,
         currUser: payload,
-        AllUsers: state.AllUsers.map((ele) =>
-          ele.email === payload.email && payload.score > ele.score
-            ? { ...ele, score: payload.score }
-            : ele
-        ),
+        AllUsers: updatedUsers,
       };
 
     default:

@@ -46,10 +46,10 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
     return Math.round(score);
   }
   const endGame = (newScore) => {
-    console.log("newScore", newScore);
     popToast();
     let TrueScore = calculateScore(newScore);
     let updatedUser = { ...currUser, score: TrueScore };
+    // console.log(updatedUser)
     dispatch(saveCurrUserScore(updatedUser));
   };
   const popToast = () => {
