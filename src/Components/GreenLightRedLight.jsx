@@ -1,4 +1,4 @@
-import { Box, Button, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import Registration from "./Registration";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,11 +42,11 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
     const numberInRange = Math.min(Math.max(number, 0), maxNumber);
     // The score range [1, 100]
     const score = (1 - numberInRange / maxNumber) * 99 + 1;
-  
+
     return Math.round(score);
   }
   const endGame = (newScore) => {
-    console.log("newScore", newScore)
+    console.log("newScore", newScore);
     popToast();
     let TrueScore = calculateScore(newScore);
     let updatedUser = { ...currUser, score: TrueScore };
@@ -89,7 +89,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
       let newScore = score + 1;
       setScore(newScore);
 
-      if (score === targetScore-1) {
+      if (score >= targetScore ) {
         // If the user reaches the target score, they win
         setGameWon(true);
         setGameStarted(false);
@@ -115,9 +115,18 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
 
   return (
     <Box mb={10}>
-      <Box textAlign={'left'} fontWeight={'extrabold'}  ml={{md:'-50px'}}>
-        <Text bg={'white'} display={'inline'} color={'black'}
-        px={4} py={1} borderRadius={10} textTransform={'capitalize'} >{currUser.level}</Text> 
+      <Box textAlign={"left"} fontWeight={"extrabold"} ml={{ md: "-50px" }}>
+        <Text
+          bg={"white"}
+          display={"inline"}
+          color={"black"}
+          px={4}
+          py={1}
+          borderRadius={10}
+          textTransform={"capitalize"}
+        >
+          {currUser.level}
+        </Text>
       </Box>
       <h1 className="Title">Green Light Red Light Game</h1>
       <Registration />
@@ -133,8 +142,11 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
             {/* changing box is here */}
             {isGreen ? "Click here" : "Stop"}
           </div>
-          <p>Time Left: {timeLeft} seconds</p>
-          <p>Score: {score}</p>
+          <p>Time Left : {timeLeft} seconds</p>
+          <Flex gap={10} justify={'center'} my={1}>
+            <p>Score : {score}</p>
+            <p>Target : {targetScore}</p>
+          </Flex>
         </div>
       )}
       {gameOver && (

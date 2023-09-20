@@ -6,10 +6,11 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
   const level = useSelector((store) => {
-    return store.level;
+    return store.currUser.level;
   });
-
+  
   let targetScore = level === "easy" ? 10 : level === "medium" ? 15 : 25;
+//   let targetScore = level === "easy" ? 2 : level === "medium" ? 15 : 25;
   let gameDuration = 40;
 
   return (
