@@ -1,7 +1,8 @@
 import { SAVENEWUSER, CURRUSERSCORE } from "./actionTypes";
 
 export const newUser = (user) => (dispatch) => {
-  dispatch({ type: SAVENEWUSER, payload: user });
+  let newUser = { ...user, score: user.score ? user.score : 0 };
+  dispatch({ type: SAVENEWUSER, payload: newUser });
 };
 
 export const saveCurrUserScore = (user) => (dispatch) => {

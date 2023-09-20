@@ -7,13 +7,13 @@ const LeaderBoard = () => {
   const [sortedUsers, setSortedUsers] = useState([]);
 
   const AllUsers = useSelector((store) => store.AllUsers);
-    const store = useSelector((store) => store.currUser);
-    console.log("AllUsers",AllUsers)
-    console.log("currUser",store)
+    // const store = useSelector((store) => store.currUser);
+    // console.log("AllUsers",AllUsers)
+    // console.log("currUser",store)
 
   useEffect(() => {
     const filteredAndSortedUsers = AllUsers.filter(
-      (user) => user.score !== undefined
+      (user) => user.score !== 0
     ).sort((a, b) => b.score - a.score);
 
     setSortedUsers(filteredAndSortedUsers);

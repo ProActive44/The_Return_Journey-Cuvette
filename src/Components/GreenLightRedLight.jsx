@@ -89,7 +89,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
       let newScore = score + 1;
       setScore(newScore);
 
-      if (score >= targetScore ) {
+      if (score >= targetScore) {
         // If the user reaches the target score, they win
         setGameWon(true);
         setGameStarted(false);
@@ -99,9 +99,15 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
         changeColor();
       }
     } else if (color === "red" && gameStarted) {
+      if (score >= targetScore) {
+        setGameWon(true);
+        setGameStarted(false);
+      } 
+      else{
+        setGameOver(true);
+        setGameStarted(false);
+      }
       endGame(score);
-      setGameStarted(false);
-      setGameOver(true);
     }
   };
 
@@ -143,7 +149,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
             {isGreen ? "Click here" : "Stop"}
           </div>
           <p>Time Left : {timeLeft} seconds</p>
-          <Flex gap={10} justify={'center'} my={1}>
+          <Flex gap={10} justify={"center"} my={1}>
             <p>Score : {score}</p>
             <p>Target : {targetScore}</p>
           </Flex>
