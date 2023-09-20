@@ -37,19 +37,23 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
       setGreen(getRandomColor());
     }, randomTime);
   };
-  function calculateScore(number, maxNumber = 40) {
-    // number is within the range [0, maxNumber]
-    const numberInRange = Math.min(Math.max(number, 0), maxNumber);
-    // The score range [1, 100]
-    const score = (1 - numberInRange / maxNumber) * 99 + 1;
 
-    return Math.round(score);
+  function calculatePercentageScore(score, timeLeft, gameDuration) {
+    
+    const maxTimeLimits = 35 // added some margin 0f 5s
+    // Ensure timeLeft is within the valid range (0 to maxTimeLimit)
+    const validTimeLeft = Math.min(Math.max(timeLeft, 0), maxTimeLimits);
+    
+    const percentageScore = (score / gameDuration) * (validTimeLeft / maxTimeLimits) * 100;
+    
+    // Ensure the percentage score is within the range [0, 100]
+    return Math.round(Math.min(Math.max(percentageScore, 0), 100))
   }
+  
   const endGame = (newScore) => {
     popToast();
-    let TrueScore = calculateScore(newScore);
+    let TrueScore = calculatePercentageScore(newScore, timeLeft, gameDuration);
     let updatedUser = { ...currUser, score: TrueScore };
-    // console.log(updatedUser)
     dispatch(saveCurrUserScore(updatedUser));
   };
   const popToast = () => {
@@ -89,7 +93,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
       let newScore = score + 1;
       setScore(newScore);
 
-      if (score >= targetScore) {
+      if (score >= targetScore-1) {
         // If the user reaches the target score, they win
         setGameWon(true);
         setGameStarted(false);

@@ -13,7 +13,7 @@ export function initialLoad(dispatch) {
   let user = {
     email: "prasadmhaske2001@gmail.com",
     level: "easy",
-    name: "Prasad Babasaheb Mhaske",
+    name: "Prasad Mhaske",
     number: "12345678790",
     score: 10,
   };
