@@ -13,8 +13,10 @@ import {
   FormLabel,
   Input,
   Select,
+  useToast,
+  Text,
 } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { newUser } from "../Redux/action";
 
 const Registration = () => {
@@ -25,13 +27,46 @@ const Registration = () => {
     number: "",
     level: "easy",
   });
-
-  const dispatch = useDispatch()
+  const AllUsers = useSelector((store) => store.AllUsers);
+  const dispatch = useDispatch();
+  const toast = useToast();
 
   const handleSave = () => {
     console.log(user);
-    dispatch(newUser(user))
-    onClose();
+    if (
+      user &&
+      user?.name !== "" &&
+      user?.email !== "" &&
+      user?.number !== ""
+    ) {
+      let ifPresent = AllUsers.find((ele) => ele.email === user.email);
+      if (!ifPresent) {
+        dispatch(newUser(user));
+        onClose();
+      } else {
+        toast({
+          title: "User Already Present",
+          status: "info",
+          duration: 5000,
+          position: "bottom-left",
+          isClosable: true,
+        });
+      }
+      setUser({
+        name: "",
+        email: "",
+        number: "",
+        level: "easy",
+      });
+    } else {
+      toast({
+        title: "Fill All The Details",
+        status: "error",
+        duration: 5000,
+        position: "bottom-left",
+        isClosable: true,
+      });
+    }
   };
 
   const handleChange = (e) => {
@@ -44,11 +79,6 @@ const Registration = () => {
 
   return (
     <>
-      {/* <Button onClick={onOpen}>Open Modal</Button>
-      <Button ml={4} ref={finalRef}>
-        I'll receive focus on close
-      </Button> */}
-
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -96,6 +126,7 @@ const Registration = () => {
               <Select
                 placeholder="Select difficulty level"
                 name="level"
+                value={user.level}
                 onChange={handleChange}
               >
                 <option value="easy">Easy</option>
@@ -103,6 +134,7 @@ const Registration = () => {
                 <option value="hard">Hard</option>
               </Select>
             </FormControl>
+            <Text color={'red'} fontFamily={'cursive'} fontSize={"x-small"} fontWeight={"bold"} mt={2}>You need to have an account in order to play this game, (PS: dummy will do)</Text>
           </ModalBody>
 
           <ModalFooter>
@@ -111,6 +143,7 @@ const Registration = () => {
             </Button>
             {/* <Button onClick={onClose}>Cancel</Button> */}
           </ModalFooter>
+
         </ModalContent>
       </Modal>
     </>
