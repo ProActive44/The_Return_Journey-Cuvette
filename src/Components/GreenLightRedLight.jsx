@@ -1,5 +1,8 @@
 import { Button } from "@chakra-ui/react";
 import React, { useState, useEffect, useCallback } from "react";
+import Registration from "./Registration";
+import { useDispatch } from "react-redux";
+import { saveCurrUserScore } from "../Redux/action";
 
 const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   const [gameStarted, setGameStarted] = useState(false);
@@ -8,6 +11,8 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   const [isGreen, setGreen] = useState(false);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(gameDuration);
+
+  const dispatch = useDispatch()
 
   const getRandomColor = () => {
     return Math.random() < 0.5;
@@ -30,6 +35,9 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
       setGreen(getRandomColor());
     }, randomTime);
   };
+  const endGame = (newScore)=>{
+     dispatch(saveCurrUserScore(newScore))
+  }
 
   useEffect(() => {
     if (gameStarted) {
@@ -45,6 +53,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
           } else {
             setGameOver(true);
           }
+          endGame(score)
         }
       }, 1000);
 
@@ -54,12 +63,14 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
 
   const handleClick = (color) => {
     if (color === "green" && gameStarted) {
-      setScore(score + 1);
+      let newScore = score + 1
+      setScore(newScore);
 
       if (score === targetScore - 1) {
         // If the user reaches the target score, they win
         setGameWon(true);
         setGameStarted(false);
+        endGame(newScore)
       } else {
         // If not, change the color for the next click
         changeColor();
@@ -67,6 +78,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
     } else if (color === "red" && gameStarted) {
       setGameStarted(false);
       setGameOver(true);
+      endGame(newScore)
     }
   };
 
@@ -81,6 +93,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   return (
     <div>
       <h1 className="Title">Green Light Red Light Game</h1>
+      <Registration/>
       {!gameStarted && !gameOver && !gameWon && (
         <Button onClick={startGame}>Start Game</Button>
       )}

@@ -17,7 +17,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { newUser } from "../Redux/action";
+import { initialLoad, newUser } from "../Redux/action";
 
 const Registration = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -74,7 +74,8 @@ const Registration = () => {
   };
 
   useEffect(() => {
-    onOpen();
+    initialLoad(dispatch)
+    // onOpen();
   }, []);
 
   return (
@@ -88,7 +89,7 @@ const Registration = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create your account</ModalHeader>
-          {/* <ModalCloseButton /> */}
+          <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Name</FormLabel>
@@ -134,7 +135,16 @@ const Registration = () => {
                 <option value="hard">Hard</option>
               </Select>
             </FormControl>
-            <Text color={'red'} fontFamily={'cursive'} fontSize={"x-small"} fontWeight={"bold"} mt={2}>You need to have an account in order to play this game, (PS: dummy will do)</Text>
+            <Text
+              color={"red"}
+              fontFamily={"cursive"}
+              fontSize={"x-small"}
+              fontWeight={"bold"}
+              mt={2}
+            >
+              You need to have an account in order to play this game, (PS: dummy
+              will do)
+            </Text>
           </ModalBody>
 
           <ModalFooter>
@@ -143,7 +153,6 @@ const Registration = () => {
             </Button>
             {/* <Button onClick={onClose}>Cancel</Button> */}
           </ModalFooter>
-
         </ModalContent>
       </Modal>
     </>
