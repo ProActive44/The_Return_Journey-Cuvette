@@ -1,3 +1,4 @@
+import { Button } from "@chakra-ui/react";
 import React, { useState, useEffect, useCallback } from "react";
 
 const GreenLightRedLight = ({ targetScore, gameDuration }) => {
@@ -79,9 +80,9 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
 
   return (
     <div>
-      <h1>Green Light Red Light Game</h1>
+      <h1 className="Title">Green Light Red Light Game</h1>
       {!gameStarted && !gameOver && !gameWon && (
-        <button onClick={startGame}>Start Game</button>
+        <Button onClick={startGame}>Start Game</Button>
       )}
       {gameStarted && !gameOver && !gameWon && (
         <div>
@@ -98,13 +99,13 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
       {gameOver && (
         <div>
           <p>Game Over!</p>
-          <button onClick={restartGame}>Play Again</button>
+          <Button onClick={restartGame}>Play Again</Button>
         </div>
       )}
       {gameWon && (
         <div>
           <p>You Win!</p>
-          <button onClick={restartGame}>Play Again</button>
+          <Button onClick={restartGame}>Play Again</Button>
         </div>
       )}
     </div>

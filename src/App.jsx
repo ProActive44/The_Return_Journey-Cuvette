@@ -1,12 +1,15 @@
-import { useState } from 'react'
 import './App.css'
 import GreenLightRedLight from './Components/GreenLightRedLight'
+import LeaderBoard from './Components/LeaderBoard'
+import Registration from './Components/Registration'
+import Home from './Pages/Home'
 
 function App() {
 
   return (
     <div>
-      <GreenLightRedLight targetScore={10} gameDuration={40}/>
+      <Registration/>
+      <Home/>
     </div>
   )
 }
