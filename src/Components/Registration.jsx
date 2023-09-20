@@ -73,7 +73,7 @@ const Registration = () => {
   };
 
   useEffect(() => {
-    initialLoad(dispatch)
+    initialLoad(dispatch);
     onOpen();
   }, []);
 
@@ -84,6 +84,7 @@ const Registration = () => {
         onClose={onClose}
         blockScrollOnMount={true}
         closeOnOverlayClick={false}
+        size={{ base: "xs", sm: "sm", md: "md" }}
       >
         <ModalOverlay />
         <ModalContent>

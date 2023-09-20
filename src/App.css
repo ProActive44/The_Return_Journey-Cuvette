@@ -5,21 +5,50 @@
   text-align: center;
   background-color: #242424;
   color: aliceblue;
-   /* border: 2px solid green; */
-   width: 100vw;
+  /* border: 2px solid green; */
+  width: 100vw;
 }
 
-.box{
-  width: 100px;
-  height: 50px;
+.box {
+  width: 200px;
+  height: 100px;
+  margin: 20px auto;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: larger;
+  font-weight: bolder;
+  font-family: cursive;
+  color: yellow;
+  cursor: pointer;
 }
 
-.green{
+
+.green {
   background-color: green;
 }
-.red{
+.red {
   background-color: red;
 }
-.Title{
+
+@keyframes Title-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+.Title {
   margin-bottom: 50px;
+  font-family: cursive;
+  font-weight: bolder;
+  background: linear-gradient(to right, #ff00cc, #3333ff);
+  -webkit-background-clip: text; /* For Safari */
+  background-clip: text;
+  color: transparent;
+  /* text-fill-color: transparent; */
+  animation: Title-animation 5s linear infinite; 
+  line-height: normal;
 }

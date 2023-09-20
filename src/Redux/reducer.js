@@ -12,6 +12,11 @@ const Reducer = (state = initState, action) => {
 
   switch (type) {
     case SAVENEWUSER:
+      state.AllUsers.map((ele) => {
+        if (ele.email === payload.email) {
+          return state;
+        }
+      });
       return {
         ...state,
         AllUsers: [...state.AllUsers, payload],

@@ -19,15 +19,15 @@ const LeaderBoard = () => {
   }, [AllUsers]);
   return (
     <Box p={1} w={"300px"} bg={"white"} color={"black"} borderRadius={20}>
-      <Text fontWeight={"extrabold"} fontFamily={'heading'}>LEADERBOARD</Text>
+      <Text my={3} fontWeight={"extrabold"} fontFamily={'heading'}>LEADERBOARD</Text>
       {/* <Flex justify={"space-between"} my={2}>
         <Button>Easy</Button>
         <Button>Medium</Button>
         <Button>Hard</Button>
       </Flex> */}
-      {
+      {/* {
         sortedUsers && <Text fontWeight={'extrabold'} mt={10}>No users</Text>
-      }
+      } */}
       <Box>
         {sortedUsers?.map((ele, idx) => {
           return (

@@ -38,16 +38,15 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
     }, randomTime);
   };
   function calculateScore(number, maxNumber = 40) {
-    // Ensure number is within the range [0, maxNumber]
+    // number is within the range [0, maxNumber]
     const numberInRange = Math.min(Math.max(number, 0), maxNumber);
-  
     // The score range [1, 100]
     const score = (1 - numberInRange / maxNumber) * 99 + 1;
   
     return Math.round(score);
   }
   const endGame = (newScore) => {
-    console.log(newScore)
+    console.log("newScore", newScore)
     popToast();
     let TrueScore = calculateScore(newScore);
     let updatedUser = { ...currUser, score: TrueScore };
@@ -115,7 +114,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   };
 
   return (
-    <div>
+    <Box mb={10}>
       <h1 className="Title">Green Light Red Light Game</h1>
       <Registration />
       {!gameStarted && !gameOver && !gameWon && (
@@ -128,6 +127,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
             onClick={() => handleClick(isGreen ? "green" : "red")}
           >
             {/* changing box is here */}
+            Click here
           </div>
           <p>Time Left: {timeLeft} seconds</p>
           <p>Score: {score}</p>
@@ -145,7 +145,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
           <Button onClick={restartGame}>Play Again</Button>
         </Box>
       )}
-    </div>
+    </Box>
   );
 };
 

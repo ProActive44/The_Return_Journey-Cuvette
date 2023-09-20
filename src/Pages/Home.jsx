@@ -13,7 +13,7 @@ const Home = () => {
   let gameDuration = 40;
 
   return (
-    <Flex justify={"space-around"} my={10}>
+    <Flex justify={"space-around"} my={10} wrap={'wrap'}>
       <GreenLightRedLight
         targetScore={targetScore}
         gameDuration={gameDuration}
