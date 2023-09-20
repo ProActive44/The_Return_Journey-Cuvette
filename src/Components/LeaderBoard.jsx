@@ -7,8 +7,8 @@ const LeaderBoard = () => {
   const [sortedUsers, setSortedUsers] = useState([]);
 
   const AllUsers = useSelector((store) => store.AllUsers);
-  const store = useSelector((store) => store);
-  console.log(store)
+  // const store = useSelector((store) => store);
+  // console.log(store)
   
 
   useEffect(() => {

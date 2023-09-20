@@ -96,6 +96,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   const handleClick = (color) => {
     if (color === "green" && gameStarted) {
       setScore((prevScore) => prevScore + 1);
+      changeColor();
     } else if (color === "red" && gameStarted) {
       endGame();
     }
@@ -122,7 +123,7 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   return (
     <Box mb={10}>
       <Box textAlign={"left"} fontWeight={"extrabold"} ml={{ md: "-50px" }}>
-        <Flex color={"black"} justify={'space-between'}>
+        <Flex color={"black"} justify={"space-between"}>
           <Select
             value={level}
             onChange={handleLevelChange}
@@ -134,8 +135,13 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
           </Select>
-          <Flex bg="white"
-            cursor={"pointer"} borderRadius={10} alignContent={'center'} p={2}>
+          <Flex
+            bg="white"
+            cursor={"pointer"}
+            borderRadius={10}
+            alignContent={"center"}
+            p={2}
+          >
             {currUser.name}
           </Flex>
         </Flex>
