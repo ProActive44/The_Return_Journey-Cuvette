@@ -8,6 +8,7 @@
   /* border: 2px solid green; */
   width: 100vw;
   min-height: 100vh;
+  font-family: cursive;
 }
 
 .box {
@@ -24,7 +25,6 @@
   color: yellow;
   cursor: pointer;
 }
-
 
 .green {
   background-color: green;
@@ -50,6 +50,6 @@
   background-clip: text;
   color: transparent;
   /* text-fill-color: transparent; */
-  animation: Title-animation 5s linear infinite; 
+  animation: Title-animation 5s linear infinite;
   line-height: normal;
 }

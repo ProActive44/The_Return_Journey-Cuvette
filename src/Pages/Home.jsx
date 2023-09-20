@@ -10,7 +10,7 @@ const Home = () => {
   });
   
   let targetScore = level === "easy" ? 10 : level === "medium" ? 15 : 25;
-//   let targetScore = level === "easy" ? 2 : level === "medium" ? 15 : 25;
+//   let targetScore = level === "easy" ? 2 : level === "medium" ? 15 : 25;  //code for testing
   let gameDuration = 40;
 
   return (

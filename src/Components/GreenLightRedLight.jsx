@@ -12,9 +12,9 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(gameDuration);
 
+  const currUser = useSelector((store) => store.currUser);
   const dispatch = useDispatch();
   const toast = useToast();
-  const currUser = useSelector((store) => store.currUser);
 
   const getRandomColor = () => {
     return Math.random() < 0.5;
@@ -39,27 +39,36 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
   };
 
   function calculatePercentageScore(score, timeLeft, gameDuration) {
-    
-    const maxTimeLimits = 35 // added some margin 0f 5s
+    const maxTimeLimits = 35; // added some margin 0f 5s
     // Ensure timeLeft is within the valid range (0 to maxTimeLimit)
     const validTimeLeft = Math.min(Math.max(timeLeft, 0), maxTimeLimits);
-    
-    const percentageScore = (score / gameDuration) * (validTimeLeft / maxTimeLimits) * 100;
-    
+
+    const percentageScore =
+      (score / gameDuration) * (validTimeLeft / maxTimeLimits) * 100;
+
     // Ensure the percentage score is within the range [0, 100]
-    return Math.round(Math.min(Math.max(percentageScore, 0), 100))
+    return Math.round(Math.min(Math.max(percentageScore, 0), 100));
   }
-  
-  const endGame = (newScore) => {
-    popToast();
-    let TrueScore = calculatePercentageScore(newScore, timeLeft, gameDuration);
+
+  const endGame = () => {
+    if (score >= targetScore) {
+      setGameWon(true);
+      popToast(true);
+    } else {
+      setGameOver(true);
+      popToast(false);
+    }
+    let TrueScore = calculatePercentageScore(score, timeLeft, gameDuration);
     let updatedUser = { ...currUser, score: TrueScore };
     dispatch(saveCurrUserScore(updatedUser));
+
+    setGameStarted(false);
   };
-  const popToast = () => {
+
+  const popToast = (win) => {
     toast({
-      title: gameWon ? "Congratulations" : "Try Again",
-      status: gameWon ? "success" : "error",
+      title: win ? "Congratulations" : "Try Again",
+      status: win ? "success" : "error",
       duration: 4000,
       isClosable: true,
       position: "bottom-left",
@@ -70,17 +79,12 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
     if (gameStarted) {
       const intervalId = setInterval(() => {
         setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
-        changeColor();
-
-        if (timeLeft === 0) {
+        
+        if (timeLeft <= 0 || score >= targetScore) {
           clearInterval(intervalId);
-          setGameStarted(false);
-          if (score >= targetScore) {
-            setGameWon(true);
-          } else {
-            setGameOver(true);
-          }
-          endGame(score);
+          endGame();
+        } else {
+          changeColor();
         }
       }, 1000);
 
@@ -90,28 +94,9 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
 
   const handleClick = (color) => {
     if (color === "green" && gameStarted) {
-      let newScore = score + 1;
-      setScore(newScore);
-
-      if (score >= targetScore-1) {
-        // If the user reaches the target score, they win
-        setGameWon(true);
-        setGameStarted(false);
-        endGame(newScore);
-      } else {
-        // If not, change the color for the next click
-        changeColor();
-      }
+      setScore((prevScore) => prevScore + 1);
     } else if (color === "red" && gameStarted) {
-      if (score >= targetScore) {
-        setGameWon(true);
-        setGameStarted(false);
-      } 
-      else{
-        setGameOver(true);
-        setGameStarted(false);
-      }
-      endGame(score);
+      endGame();
     }
   };
 
@@ -161,13 +146,18 @@ const GreenLightRedLight = ({ targetScore, gameDuration }) => {
       )}
       {gameOver && (
         <Box my={10}>
-          <Text my={5}>Game Over!</Text>
+          <Text my={5} color={"red"}>
+            Game Over!
+          </Text>
+          <Text>Your Score : {score}</Text>
           <Button onClick={restartGame}>Play Again</Button>
         </Box>
       )}
       {gameWon && (
         <Box my={10}>
-          <Text my={5}>You Win!</Text>
+          <Text my={5} color={"yellow"}>
+            Winner !!!
+          </Text>
           <Button onClick={restartGame}>Play Again</Button>
         </Box>
       )}

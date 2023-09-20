@@ -7,9 +7,6 @@ const LeaderBoard = () => {
   const [sortedUsers, setSortedUsers] = useState([]);
 
   const AllUsers = useSelector((store) => store.AllUsers);
-  // const store = useSelector((store) => store.currUser);
-  // console.log("AllUsers",AllUsers)
-  // console.log("currUser",store)
 
   useEffect(() => {
     const filteredAndSortedUsers = AllUsers.filter(
@@ -36,9 +33,6 @@ const LeaderBoard = () => {
         <Button>Medium</Button>
         <Button>Hard</Button>
       </Flex> */}
-      {/* {
-        sortedUsers && <Text fontWeight={'extrabold'} mt={10}>No users</Text>
-      } */}
       <Stack gap={1}>
         <Flex
           p={1}
@@ -47,17 +41,14 @@ const LeaderBoard = () => {
           borderRadius={10}
           fontWeight={"bold"}
           justify={"space-between"}
-        //   boxShadow={
-        //     "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px"
-        //   }
+          //   boxShadow={
+          //     "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px"
+          //   }
           cursor={"pointer"}
         >
           <Text>{"No"}</Text>
           <Text>Name</Text>
-          {/* <Text>{ele.email}</Text> */}
-          {/* <Text>{ele.number}</Text> */}
-          <Text>  </Text>
-          <Text>Maxscore</Text>
+          <Text>Maxpoints</Text>
         </Flex>
         {sortedUsers?.map((ele, idx) => {
           return (
